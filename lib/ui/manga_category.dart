@@ -6,25 +6,34 @@ class MangaCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.only(bottom: 10.0),
+            padding: EdgeInsets.only(bottom: 10.0, left: 20.0),
             child: Text(
-              "PLACEHOLDER",
+              "Placeholder",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 24,
+                  fontSize: 20,
                   fontWeight: FontWeight.w600),
             ),
           ),
-          Container(
-            color: Colors.deepOrange,
-            width: MediaQuery.of(context).size.width,
-            height: 100.0,
-          )
+
+          SizedBox(
+            height: 120.0,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                Container(color: Colors.deepOrange, margin: const EdgeInsets.symmetric(horizontal: 5.0), width: 80.0),
+                Container(color: Colors.deepOrange, margin: const EdgeInsets.symmetric(horizontal: 5.0), width: 80.0),
+                Container(color: Colors.deepOrange, margin: const EdgeInsets.symmetric(horizontal: 5.0), width: 80.0),
+                Container(color: Colors.deepOrange, margin: const EdgeInsets.symmetric(horizontal: 5.0), width: 80.0),
+                Container(color: Colors.deepOrange, margin: const EdgeInsets.symmetric(horizontal: 5.0), width: 80.0),
+              ],
+            ),
+          ),
         ],
       ),
     );
