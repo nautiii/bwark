@@ -1,13 +1,13 @@
 import 'package:bwark/data/index_model.dart';
-import 'package:bwark/ui/download_page.dart';
-import 'package:bwark/ui/home_page.dart';
-import 'package:bwark/ui/like_page.dart';
-import 'package:bwark/ui/recommendation_page.dart';
-import 'package:bwark/ui/shared/header_bar.dart';
+import 'package:bwark/ui/pages/download_page.dart';
+import 'package:bwark/ui/pages/home_page.dart';
+import 'package:bwark/ui/pages/like_page.dart';
+import 'package:bwark/ui/pages/recommendation_page.dart';
+import 'package:bwark/ui/header_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bwark/data/theme.dart';
-import 'package:bwark/ui/shared/bottom_bar.dart';
+import 'package:bwark/ui/bottom_bar.dart';
 import 'package:provider/provider.dart';
 
 void main() {
