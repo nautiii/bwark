@@ -1,3 +1,4 @@
+import 'package:bwark/data/api_myanimelist.dart';
 import 'package:bwark/data/index_model.dart';
 import 'package:bwark/ui/pages/download_page.dart';
 import 'package:bwark/ui/pages/home_page.dart';
