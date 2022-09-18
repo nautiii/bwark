@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "335777282051",
+    "project_id": "bwark-81a84",
+    "storage_bucket": "bwark-81a84.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:335777282051:android:6e27833b983036722ab636",
+        "android_client_info": {
+          "package_name": "com.nautiii.bwark"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "335777282051-brglm7aa7dcv1stofmfr1k4fjb5tafjb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBdyolWcN7RYljmj_uKi6YXZVuI8itn5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "335777282051-brglm7aa7dcv1stofmfr1k4fjb5tafjb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
