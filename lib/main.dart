@@ -1,3 +1,4 @@
+import 'package:bwark/data/api_myanimelist.dart';
 import 'package:bwark/data/index_model.dart';
 import 'package:bwark/ui/pages/download_page.dart';
 import 'package:bwark/ui/pages/home_page.dart';
@@ -13,7 +14,7 @@ import 'package:bwark/ui/bottom_bar.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  MyAnimeListAPI().getMangaByCategory();
   runApp(const MyApp());
 }
 
@@ -22,6 +23,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
     const List<Widget> widgetOptions = <Widget>[
       HomePage(),
       RecommendationPage(),

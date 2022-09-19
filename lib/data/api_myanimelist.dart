@@ -1,7 +1,10 @@
+import 'package:bwark/data/manga.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:async';
 import 'dart:convert';
+
+// fields=id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_volumes,num_chapters,authors{first_name,last_name},pictures,background,related_anime,related_manga,recommendations,serialization{name}
 
 class MyAnimeListAPI extends MyAnimeListAuth {
   final _host = 'api.myanimelist.net';
@@ -12,6 +15,7 @@ class MyAnimeListAPI extends MyAnimeListAuth {
   Map<String, String> get _headers => {
         'content-type': 'application/vnd.api+json',
         'Accept': 'application/json',
+        'Authorization': 'Bearer $_accessToken',
       };
 
   Future<Map> _request(String path, Map<String, Object> params) async {
@@ -25,6 +29,17 @@ class MyAnimeListAPI extends MyAnimeListAuth {
     final request = await _request('manga', <String, String>{'q': name});
 
     return request;
+  }
+
+  Future getMangaByCategory() async {
+    final result = await _request('manga/ranking',
+        <String, String>{'ranking_type': 'manga', 'limit': '200'});
+    final List<Manga> mangaList = [];
+
+    for (dynamic data in result['data']) {
+      mangaList.add(Manga.fromJson(data['node']));
+    }
+    print(mangaList.first.title);
   }
 
   // Future<List<Article>?> fetchArticles(String? query) async {
