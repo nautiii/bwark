@@ -70,8 +70,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '335777282051',
     projectId: 'bwark-81a84',
     storageBucket: 'bwark-81a84.appspot.com',
-    iosClientId:
-        '335777282051-f1psvm1lvv9pdltl5v1o4e53r7nrh64s.apps.googleusercontent.com',
+    iosClientId: '335777282051-f1psvm1lvv9pdltl5v1o4e53r7nrh64s.apps.googleusercontent.com',
     iosBundleId: 'com.nautiii.bwark',
   );
 }

@@ -29,6 +29,13 @@
             {
               "client_id": "335777282051-brglm7aa7dcv1stofmfr1k4fjb5tafjb.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "335777282051-f1psvm1lvv9pdltl5v1o4e53r7nrh64s.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.nautiii.bwark"
+              }
             }
           ]
         }
