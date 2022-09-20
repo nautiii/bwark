@@ -1,4 +1,4 @@
-import 'package:bwark/data/manga.dart';
+import 'package:bwark/data/manga_model.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:async';
@@ -25,21 +25,23 @@ class MyAnimeListAPI extends MyAnimeListAuth {
     return json.decode(results.body);
   }
 
-  Future getMangaByName(String name) async {
-    final request = await _request('manga', <String, String>{'q': name});
+  Future<MangaModel> getMangaByName(String name) async {
+    final result =
+        await _request('manga', <String, String>{'q': name, 'limit': '1'});
 
-    return request;
+    return MangaModel.fromJson(result['data'][0]['node']);
   }
 
-  Future getMangaByCategory() async {
+  Future<List<MangaModel>> getMangaByCategory(String category) async {
     final result = await _request('manga/ranking',
         <String, String>{'ranking_type': 'manga', 'limit': '200'});
-    final List<Manga> mangaList = [];
+    final List<MangaModel> mangaList = [];
 
     for (dynamic data in result['data']) {
-      mangaList.add(Manga.fromJson(data['node']));
+      mangaList.add(MangaModel.fromJson(data['node']));
     }
-    print(mangaList.first.title);
+
+    return mangaList;
   }
 
   // Future<List<Article>?> fetchArticles(String? query) async {

@@ -1,4 +1,3 @@
-import 'package:bwark/data/api_myanimelist.dart';
 import 'package:bwark/data/index_model.dart';
 import 'package:bwark/ui/pages/download_page.dart';
 import 'package:bwark/ui/pages/home_page.dart';
@@ -9,27 +8,26 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-import 'package:bwark/data/theme.dart';
+import 'package:bwark/ui/shared/theme.dart';
 import 'package:bwark/ui/bottom_bar.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  MyAnimeListAPI().getMangaByCategory();
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-    const List<Widget> widgetOptions = <Widget>[
+    List<Widget> widgetOptions = <Widget>[
       HomePage(),
-      RecommendationPage(),
-      LikePage(),
-      DownloadPage(),
+      const RecommendationPage(),
+      const LikePage(),
+      const DownloadPage(),
     ];
 
     return MaterialApp(
