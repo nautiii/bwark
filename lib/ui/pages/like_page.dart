@@ -29,7 +29,7 @@ class LikePage extends StatelessWidget {
                         fontSize: 30,
                         fontWeight: FontWeight.w600)),
               ),
-              const MangaCategory(displayTitle: false),
+              const MangaCategory(displayTitle: false, list: []),
             ],
           ),
           const Padding(

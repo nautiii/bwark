@@ -9,7 +9,7 @@ class MyAnimeListBloc extends Bloc<MyAnimeListEvent, MyAnimeListState> {
   MyAnimeListBloc() : super(MyAnimeListInitial()) {
     final MyAnimeListRepository malRepo = MyAnimeListRepository();
 
-    on<GetMyAnimeListSingleManga>((event, emit) async {
+    on<GetMALSingleManga>((event, emit) async {
       try {
         emit(MyAnimeListLoading());
         final manga = await malRepo.getMangaByName(event.manga);
@@ -19,11 +19,11 @@ class MyAnimeListBloc extends Bloc<MyAnimeListEvent, MyAnimeListState> {
       }
     });
 
-    on<GetMyAnimeListMultipleManga>((event, emit) async {
+    on<GetMALMultipleManga>((event, emit) async {
       try {
         emit(MyAnimeListLoading());
-        final mangaList = await malRepo.getMangaByCategory(event.category);
-        emit(MyAnimeListCategoryLoaded(mangaList));
+        final mangaList = await malRepo.getMangaByGenre(event.genre);
+        emit(MyAnimeListGenreLoaded(mangaList));
       } on Exception catch (_, error) {
         emit(MyAnimeListError(error.toString()));
       }

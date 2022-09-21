@@ -1,20 +1,19 @@
+import 'package:bwark/data/manga_model.dart';
 import 'package:bwark/ui/shared/manga_modal.dart';
 import 'package:flutter/material.dart';
 
 class MangaCategory extends StatelessWidget {
   final bool displayTitle;
+  final List<MangaModel> list;
 
-  const MangaCategory({Key? key, this.displayTitle = true}) : super(key: key);
+  const MangaCategory({Key? key, this.displayTitle = true, required this.list})
+      : super(key: key);
 
-  Widget manga(BuildContext context) => InkWell(
+  Widget manga(BuildContext context, String img) => InkWell(
         onTap: () => showMangaModal(context),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(5.0),
-          child: Image.network(
-            'https://images-na.ssl-images-amazon.com/images/I/81ZwggSh1zL.jpg',
-            fit: BoxFit.cover,
-            width: 110.0,
-          ),
+          child: Image.network(img, fit: BoxFit.cover, width: 110.0),
         ),
       );
 
@@ -39,12 +38,12 @@ class MangaCategory extends StatelessWidget {
           SizedBox(
             height: 150.0,
             child: ListView.builder(
-                itemCount: 10,
+                itemCount: list.length,
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.zero,
                 itemBuilder: (BuildContext context, int index) => Container(
                       margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                      child: manga(context),
+                      child: manga(context, list[index].img),
                     )),
           ),
         ],

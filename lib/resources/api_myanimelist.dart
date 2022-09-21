@@ -4,7 +4,34 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-// fields=id,title,main_picture,alternative_titles,start_date,end_date,synopsis,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_volumes,num_chapters,authors{first_name,last_name},pictures,background,related_anime,related_manga,recommendations,serialization{name}
+// id,
+// title,
+// main_picture,
+// alternative_titles,
+// start_date,
+// end_date,
+// synopsis,
+// mean,
+// rank,
+// popularity,
+// num_list_users,
+// num_scoring_users,
+// nsfw,
+// created_at,
+// updated_at,
+// media_type,
+// status,
+// genres,
+// my_list_status,
+// num_volumes,
+// num_chapters,
+// authors{first_name,last_name},
+// pictures,
+// background,
+// related_anime,
+// related_manga,
+// recommendations,
+// serialization{name}
 
 class MyAnimeListAPI extends MyAnimeListAuth {
   final _host = 'api.myanimelist.net';
@@ -26,43 +53,30 @@ class MyAnimeListAPI extends MyAnimeListAuth {
   }
 
   Future<MangaModel> getMangaByName(String name) async {
-    final result =
-        await _request('manga', <String, String>{'q': name, 'limit': '1'});
+    final result = await _request('manga', <String, String>{
+      'q': name,
+      'limit': '1',
+      'fields':
+          'id,title,main_picture,synopsis,rank,popularity,nsfw,status,genres,num_chapters,authors'
+    });
 
     return MangaModel.fromJson(result['data'][0]['node']);
   }
 
-  Future<List<MangaModel>> getMangaByCategory(String category) async {
-    final result = await _request('manga/ranking',
-        <String, String>{'ranking_type': 'manga', 'limit': '200'});
+  Future<List<MangaModel>> getMangaByGenre(String genre) async {
+    final result = await _request('manga/ranking', <String, String>{
+      'ranking_type': 'manga',
+      'limit': '100',
+      'fields':
+          'id,title,main_picture,synopsis,rank,popularity,nsfw,status,genres,num_chapters,authors'
+    });
     final List<MangaModel> mangaList = [];
 
     for (dynamic data in result['data']) {
       mangaList.add(MangaModel.fromJson(data['node']));
     }
-
     return mangaList;
   }
-
-  // Future<List<Article>?> fetchArticles(String? query) async {
-  //   Map<String, Object> params = {
-  //     'filter[content_types][]': 'article',
-  //     'page[size]': '25',
-  //   };
-  //
-  //   if (query != null && query.isNotEmpty) {
-  //     params['filter[q]'] = query;
-  //   }
-  //
-  //   final results = await request(path: 'contents', params: params);
-  //   return results['data'].map<Article>(Article.fromJson).toList(growable: false);
-  // }
-  //
-  // Future<Article?> getDetailArticle(String id) async {
-  //   final results = await request(path: 'contents/$id', params: {});
-  //   final data = results['data'];
-  //   return Article.fromJson(data);
-  // }
 }
 
 class MyAnimeListAuth {

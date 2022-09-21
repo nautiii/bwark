@@ -6,6 +6,7 @@ class MyAnimeListRepository {
 
   Future<MangaModel> getMangaByName(String name) =>
       _provider.getMangaByName(name);
-  Future<List<MangaModel>> getMangaByCategory(String category) =>
-      _provider.getMangaByCategory(category);
+
+  Future<List<MangaModel>> getMangaByGenre(String category) =>
+      _provider.getMangaByGenre(category);
 }

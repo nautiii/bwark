@@ -11,13 +11,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => _malBloc,
+      create: (_) =>
+          _malBloc..add(const GetMALMultipleManga(genre: 'seinen')),
       child: BlocBuilder<MyAnimeListBloc, MyAnimeListState>(
           builder: (context, state) {
         if (state is MyAnimeListInitial) {
-          _malBloc.add(const GetMyAnimeListMultipleManga(category: 'shonen'));
           return Container();
-        } else {
+        } else if (state is MyAnimeListGenreLoaded) {
           return SingleChildScrollView(
             child: Stack(
               children: [
@@ -67,13 +67,15 @@ class HomePage extends StatelessWidget {
                                   )),
                             ],
                           )),
-                      for (int a = 0; a < 4; a++) const MangaCategory(),
+                      for (int a = 0; a < 4; a++) MangaCategory(list: state.mangaList),
                     ],
                   ),
                 ),
               ],
             ),
           );
+        } else {
+          return Container();
         }
       }),
     );

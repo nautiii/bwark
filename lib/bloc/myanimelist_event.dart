@@ -4,11 +4,11 @@ abstract class MyAnimeListEvent {
   const MyAnimeListEvent();
 }
 
-class GetMyAnimeListSingleManga extends MyAnimeListEvent {
+class GetMALSingleManga extends MyAnimeListEvent {
   final String manga;
-  const GetMyAnimeListSingleManga({required this.manga});
+  const GetMALSingleManga({required this.manga});
 }
-class GetMyAnimeListMultipleManga extends MyAnimeListEvent {
-  final String category;
-  const GetMyAnimeListMultipleManga({required this.category});
+class GetMALMultipleManga extends MyAnimeListEvent {
+  final String genre;
+  const GetMALMultipleManga({required this.genre});
 }

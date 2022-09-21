@@ -13,9 +13,9 @@ class MyAnimeListMangaLoaded extends MyAnimeListState {
   const MyAnimeListMangaLoaded(this.manga);
 }
 
-class MyAnimeListCategoryLoaded extends MyAnimeListState {
+class MyAnimeListGenreLoaded extends MyAnimeListState {
   final List<MangaModel> mangaList;
-  const MyAnimeListCategoryLoaded(this.mangaList);
+  const MyAnimeListGenreLoaded(this.mangaList);
 }
 
 class MyAnimeListError extends MyAnimeListState {
