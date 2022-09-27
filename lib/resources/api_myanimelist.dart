@@ -57,7 +57,7 @@ class MyAnimeListAPI extends MyAnimeListAuth {
       'q': name,
       'limit': '1',
       'fields':
-          'id,title,main_picture,synopsis,rank,popularity,nsfw,status,genres,num_chapters,authors'
+          'id,title,main_picture,synopsis,rank,popularity,nsfw,status,genres,num_chapters,authors,recommendations'
     });
 
     return MangaModel.fromJson(result['data'][0]['node']);
@@ -68,7 +68,7 @@ class MyAnimeListAPI extends MyAnimeListAuth {
       'ranking_type': 'manga',
       'limit': '100',
       'fields':
-          'id,title,main_picture,synopsis,rank,popularity,nsfw,status,genres,num_chapters,authors'
+          'id,title,main_picture,synopsis,rank,popularity,nsfw,status,genres,num_chapters,authors,recommendations'
     });
     final List<MangaModel> mangaList = [];
 

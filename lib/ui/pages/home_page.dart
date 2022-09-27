@@ -4,80 +4,73 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
-  final MyAnimeListBloc _malBloc = MyAnimeListBloc();
-
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) =>
-          _malBloc..add(const GetMALMultipleManga(genre: 'seinen')),
-      child: BlocBuilder<MyAnimeListBloc, MyAnimeListState>(
-          builder: (context, state) {
-        if (state is MyAnimeListInitial) {
-          return Container();
-        } else if (state is MyAnimeListGenreLoaded) {
-          return SingleChildScrollView(
-            child: Stack(
-              children: [
-                Image.asset(
-                  "lib/assets/home.png",
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  fit: BoxFit.fitHeight,
-                  filterQuality: FilterQuality.medium,
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.35),
-                  padding: const EdgeInsets.only(top: 50.0),
-                  width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          stops: [0.0, 0.1],
-                          colors: [Colors.transparent, Colors.black])),
-                  child: Column(
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.only(bottom: 25.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Padding(
-                                  padding: const EdgeInsets.only(top: 50.0),
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.favorite_border),
-                                  )),
-                              Text(
-                                'Placeholder',
-                                style: TextStyle(
-                                    color: Colors.deepOrange.shade50,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Padding(
-                                  padding: const EdgeInsets.only(top: 50.0),
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.info_outline),
-                                  )),
-                            ],
-                          )),
-                      for (int a = 0; a < 4; a++) MangaCategory(list: state.mangaList),
-                    ],
-                  ),
-                ),
-              ],
+    return BlocBuilder<MyAnimeListBloc, MyAnimeListState>(
+        builder: (context, state) {
+      if (state is MyAnimeListGenreLoaded) {
+        return ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            Image.asset(
+              "lib/assets/home.png",
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.5,
+              fit: BoxFit.fitHeight,
+              filterQuality: FilterQuality.medium,
             ),
-          );
-        } else {
-          return Container();
-        }
-      }),
-    );
+            Container(
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black, spreadRadius: 20, blurRadius: 18)
+                ],
+                color: Colors.black,
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.favorite_border),
+                              )),
+                          Text(
+                            'Placeholder',
+                            style: TextStyle(
+                                color: Colors.deepOrange.shade50,
+                                fontSize: 30,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.info_outline),
+                              )),
+                        ],
+                      )),
+                  for (int a = 0; a < 4; a++)
+                    MangaCategory(title: "Placeholder", list: state.mangaList),
+                ],
+              ),
+            ),
+          ],
+        );
+      } else if (state is MyAnimeListError) {
+        return const Center(child: Text('Error API'));
+      } else {
+        return const Center(child: Text('Loading...'));
+      }
+    });
   }
 }

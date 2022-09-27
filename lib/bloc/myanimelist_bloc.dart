@@ -6,7 +6,7 @@ part 'myanimelist_event.dart';
 part 'myanimelist_state.dart';
 
 class MyAnimeListBloc extends Bloc<MyAnimeListEvent, MyAnimeListState> {
-  MyAnimeListBloc() : super(MyAnimeListInitial()) {
+  MyAnimeListBloc() : super(MyAnimeListLoading()) {
     final MyAnimeListRepository malRepo = MyAnimeListRepository();
 
     on<GetMALSingleManga>((event, emit) async {

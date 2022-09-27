@@ -1,12 +1,38 @@
 class MangaModel {
   late final int id;
   late final String title;
-  late final String img;
-
-  MangaModel({required this.id, required this.title, required this.img});
+  late final MangaAttributes? attributes;
 
   MangaModel.fromJson(dynamic json)
       : id = json['id'],
         title = json['title'],
-        img = json['main_picture']['medium'];
+        attributes = MangaAttributes.fromJson(json);
+}
+
+class MangaAttributes {
+  late final String? image;
+  late final String? synopsis;
+  late final int? rank;
+  late final int? popularity;
+  late final String? nsfw;
+  late final String? status;
+  late final List<dynamic>? genres;
+  late final String? numChapters;
+  late final List<String>? authors;
+  late final List<dynamic>? recommendations;
+
+  MangaAttributes.fromJson(Map json)
+      : image = json['main_picture']['medium'],
+        synopsis = json['synopsis'],
+        rank = json['rank'],
+        popularity = json['popularity'],
+        nsfw = json['nsfw'],
+        status = json['status'],
+        genres = json['genres'],
+        numChapters = json['num_chapters'],
+        authors = [
+          json['authors']['node']['first_name'],
+          json['authors']['node']['last_name']
+        ],
+        recommendations = json['recommendations'];
 }

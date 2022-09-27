@@ -4,8 +4,6 @@ abstract class MyAnimeListState {
   const MyAnimeListState();
 }
 
-class MyAnimeListInitial extends MyAnimeListState {}
-
 class MyAnimeListLoading extends MyAnimeListState {}
 
 class MyAnimeListMangaLoaded extends MyAnimeListState {
