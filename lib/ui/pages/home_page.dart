@@ -1,5 +1,6 @@
 import 'package:bwark/bloc/myanimelist_bloc.dart';
 import 'package:bwark/ui/shared/manga_category.dart';
+import 'package:bwark/ui/shared/manga_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,12 +15,16 @@ class HomePage extends StatelessWidget {
         return ListView(
           padding: EdgeInsets.zero,
           children: [
-            Image.asset(
-              "lib/assets/home.png",
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.5,
-              fit: BoxFit.fitHeight,
-              filterQuality: FilterQuality.medium,
+            GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const MangaMenu())),
+              child: Image.asset(
+                "lib/assets/home.png",
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.5,
+                fit: BoxFit.fitHeight,
+                filterQuality: FilterQuality.medium,
+              ),
             ),
             Container(
               width: MediaQuery.of(context).size.width,
@@ -36,23 +41,36 @@ class HomePage extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 16.0),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                              padding: const EdgeInsets.only(top: 16.0),
+                              padding:
+                                  const EdgeInsets.only(top: 24.0, right: 8.0),
                               child: IconButton(
                                 onPressed: () {},
                                 icon: const Icon(Icons.favorite_border),
                               )),
-                          Text(
-                            'Placeholder',
-                            style: TextStyle(
-                                color: Colors.deepOrange.shade50,
-                                fontSize: 30,
-                                fontWeight: FontWeight.w600),
+                          GestureDetector(
+                            onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => const MangaMenu())),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: Text(
+                                'Love is War',
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                style: TextStyle(
+                                    color: Colors.deepOrange.shade50,
+                                    fontSize: 30,
+                                    overflow: TextOverflow.ellipsis,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
                           ),
                           Padding(
-                              padding: const EdgeInsets.only(top: 16.0),
+                              padding:
+                                  const EdgeInsets.only(top: 24.0, left: 8.0),
                               child: IconButton(
                                 onPressed: () {},
                                 icon: const Icon(Icons.info_outline),

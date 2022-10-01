@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc/myanimelist_bloc.dart';
 import 'firebase_options.dart';
 
-import 'package:bwark/ui/shared/theme.dart';
+import 'package:bwark/theme.dart';
 import 'package:bwark/ui/bottom_bar.dart';
 import 'package:provider/provider.dart';
 

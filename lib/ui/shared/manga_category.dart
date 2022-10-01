@@ -1,5 +1,6 @@
 import 'package:bwark/data/manga_model.dart';
-import 'package:bwark/ui/shared/manga_modal.dart';
+import 'package:bwark/ui/shared/manga_card.dart';
+import 'package:bwark/ui/shared/modal/manga_modal.dart';
 import 'package:flutter/material.dart';
 
 class MangaCategory extends StatelessWidget {
@@ -13,14 +14,6 @@ class MangaCategory extends StatelessWidget {
       this.displayTitle = true,
       required this.list})
       : super(key: key);
-
-  Widget mangaCard(BuildContext context, MangaModel manga) => InkWell(
-        onTap: () => showMangaModal(context, manga),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(4.0),
-          child: Image.network(manga.attributes!.image!, fit: BoxFit.cover, width: 110.0),
-        ),
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +39,9 @@ class MangaCategory extends StatelessWidget {
                 itemCount: list.length,
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.zero,
-                itemBuilder: (BuildContext context, int index) => Container(
+                itemBuilder: (_, int index) => Container(
                       margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: mangaCard(context, list[index]),
+                      child: MangaCard(manga: list[index]),
                     )),
           ),
         ],

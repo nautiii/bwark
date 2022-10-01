@@ -16,9 +16,10 @@ class MangaAttributes {
   late final int? popularity;
   late final String? nsfw;
   late final String? status;
+  late final String? startDate;
   late final List<dynamic>? genres;
-  late final String? numChapters;
-  late final List<String>? authors;
+  late final int? numChapters;
+  late final List<dynamic>? authors;
   late final List<dynamic>? recommendations;
 
   MangaAttributes.fromJson(Map json)
@@ -28,11 +29,9 @@ class MangaAttributes {
         popularity = json['popularity'],
         nsfw = json['nsfw'],
         status = json['status'],
+        startDate = json['start_date'],
         genres = json['genres'],
         numChapters = json['num_chapters'],
-        authors = [
-          json['authors']['node']['first_name'],
-          json['authors']['node']['last_name']
-        ],
+        authors = json['authors'],
         recommendations = json['recommendations'];
 }
