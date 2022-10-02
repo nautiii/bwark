@@ -21,8 +21,8 @@ Future<void> showMangaModal(BuildContext context, MangaModel manga) {
               padding:
                   const EdgeInsets.only(right: 16.0, left: 16.0, top: 16.0),
               child: GestureDetector(
-                onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const MangaMenu())),
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => MangaMenu(manga: manga))),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -155,7 +155,7 @@ Future<void> showMangaModal(BuildContext context, MangaModel manga) {
                 )),
                 child: GestureDetector(
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const MangaMenu())),
+                      builder: (context) => MangaMenu(manga: manga))),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Row(

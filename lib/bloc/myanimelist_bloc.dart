@@ -1,4 +1,4 @@
-import 'package:bwark/resources/repo_myanimelist.dart';
+import 'package:bwark/resources/myanimelist_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bwark/data/manga_model.dart';
 
