@@ -35,87 +35,88 @@ Future<void> showMangaModal(BuildContext context, MangaModel manga) {
                       ),
                     ),
                     Expanded(
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                color: Colors.transparent,
-                                width: MediaQuery.of(context).size.width * 0.50,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      manga.title,
-                                      style: TextStyle(
-                                          color: Colors.deepOrange.shade50,
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            manga.attributes!.startDate!
-                                                .split('-')[0],
-                                            style: TextStyle(
-                                                color: Colors.deepOrange.shade50
-                                                    .withOpacity(0.5),
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          SizedBox.fromSize(
-                                              size: const Size(32.0, 0.0)),
-                                          Text(
-                                            manga.attributes!.popularity!
-                                                .toString(),
-                                            style: TextStyle(
-                                                color: Colors.deepOrange.shade50
-                                                    .withOpacity(0.5),
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        ],
+                      child: Container(
+                        color: Colors.transparent,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        manga.title,
+                                        style: TextStyle(
+                                            color: Colors.deepOrange.shade50,
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              ClipOval(
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    splashColor: Colors.black, // Splash color
-                                    onTap: () => Navigator.of(context).pop(),
-                                    child: const SizedBox(
-                                        width: 32.0,
-                                        height: 32.0,
-                                        child: Icon(Icons.close, size: 32.0)),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              manga.attributes!.startDate!
+                                                  .split('-')[0],
+                                              style: TextStyle(
+                                                  color: Colors.deepOrange.shade50
+                                                      .withOpacity(0.5),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            SizedBox.fromSize(
+                                                size: const Size(32.0, 0.0)),
+                                            Text(
+                                              manga.attributes!.popularity!
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  color: Colors.deepOrange.shade50
+                                                      .withOpacity(0.5),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            manga.attributes!.synopsis!,
-                            style: TextStyle(
-                              color: Colors.deepOrange.shade50,
-                              fontSize: 16,
-                              height: 1.3,
+                                ClipOval(
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                      splashColor: Colors.black, // Splash color
+                                      onTap: () => Navigator.of(context).pop(),
+                                      child: const SizedBox(
+                                          width: 32.0,
+                                          height: 32.0,
+                                          child: Icon(Icons.close, size: 32.0)),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            textAlign: TextAlign.left,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 4,
-                          ),
-                        ],
+                            Text(
+                              manga.attributes!.synopsis!,
+                              style: TextStyle(
+                                color: Colors.deepOrange.shade50,
+                                fontSize: 16,
+                                height: 1.3,
+                              ),
+                              textAlign: TextAlign.left,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 4,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

@@ -19,6 +19,7 @@ class MangaMenu extends StatelessWidget {
         return true;
       },
       builder: (context, state) {
+
         return const Material(
             color: Colors.black,
             child: Center(
