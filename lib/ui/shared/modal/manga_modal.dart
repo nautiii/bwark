@@ -125,7 +125,7 @@ Future<void> showMangaModal(BuildContext context, MangaModel manga) {
             ),
             Container(
               margin: const EdgeInsets.only(bottom: 8.0),
-              height: 72.0,
+              height: 67.0,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
