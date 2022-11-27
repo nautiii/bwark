@@ -4,40 +4,11 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-// id,
-// title,
-// main_picture,
-// alternative_titles,
-// start_date,
-// end_date,
-// synopsis,
-// mean,
-// rank,
-// popularity,
-// num_list_users,
-// num_scoring_users,
-// nsfw,
-// created_at,
-// updated_at,
-// media_type,
-// status,
-// genres,
-// my_list_status,
-// num_volumes,
-// num_chapters,
-// authors{first_name,last_name},
-// pictures,
-// background,
-// related_anime,
-// related_manga,
-// recommendations,
-// serialization{name}
-
-class MyAnimeListAPI extends MyAnimeListAuth {
+class MyAnimeListAPI {
   final _host = 'api.myanimelist.net';
   final _version = 'v2';
   final _accessToken =
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImU1OTA2NjczYjgzZTEzNTUwZjU4NTlhMTg2NjBmMTE4NGE2ODU0YzY4ZmM0MGVjNzgzZDAxM2E3NjZjZDU3NWQwNDI1ODhkMzY2ODlmMTA1In0.eyJhdWQiOiIwM2JmMjFlZGM4MzYzYzEyYjU2ODU5MDUyOGRjNGMxZSIsImp0aSI6ImU1OTA2NjczYjgzZTEzNTUwZjU4NTlhMTg2NjBmMTE4NGE2ODU0YzY4ZmM0MGVjNzgzZDAxM2E3NjZjZDU3NWQwNDI1ODhkMzY2ODlmMTA1IiwiaWF0IjoxNjYzNTIwMTk1LCJuYmYiOjE2NjM1MjAxOTUsImV4cCI6MTY2NjExMjE5NSwic3ViIjoiMTUxNzA0MDciLCJzY29wZXMiOltdfQ.DGI6P2ohdbkA_bvqS_SU_A2Lg11cqM-KWGisJkZE5ges7KmT_RMpy26dA1VgP6vZS_8tdjOGPNCtASN5VEWm_5w9k95FATnafWuax3CC0cQ2K9-9zz330p0I-Hv6-FlbmgYO6eM0cYi2S9m4T7OFUzjrIPKCiM-RWupAmb70ZQboWAAoYJYrVLZN7n6YynPfGU60mBaXcMkkJpCl15voaevDT0XFtihekCQfemE5Ozp_LA7Q1KoYlPXCe_2PRPWJ63qhtqvQvU78QEpmRB9UnrGs6bnad_9Q8seDxOlqVAh2p4SO7FUR_bGzXvjbx4kpGlOqS-chRk9ZcuJIlhtI0A';
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjNhOTc2N2E3NWJjMWZjMDhjYzhjNzQwNDgxYjEwZTdmMDhjOTFmNDA3ODkzOWIwYjY4ZWQzOTJhODA2MjUwZDhjOWZlODUxZDE4MGM3ZGQzIn0.eyJhdWQiOiIwM2JmMjFlZGM4MzYzYzEyYjU2ODU5MDUyOGRjNGMxZSIsImp0aSI6IjNhOTc2N2E3NWJjMWZjMDhjYzhjNzQwNDgxYjEwZTdmMDhjOTFmNDA3ODkzOWIwYjY4ZWQzOTJhODA2MjUwZDhjOWZlODUxZDE4MGM3ZGQzIiwiaWF0IjoxNjY3MTYyNzA1LCJuYmYiOjE2NjcxNjI3MDUsImV4cCI6MTY2OTg0NDcwNSwic3ViIjoiMTUxNzA0MDciLCJzY29wZXMiOltdfQ.B55TiDHcwWzw7b6FqiVGOx7Nww-RoDyqgs-5kf4La5uI_SvB_BYnjbgnPoItCkYM-hyCOCU7nA3YwMkTrBxeqpUAxgi-xAHbf_BqIJYPdCk5LBNgYWu0gIaGJXVjohHn9Z5YkCjKHUcuUlt6Hv5hw6gf0fLK8_cgPEItNEZWZ1UeqQtORJRBG4tBJ7JkJSe90gNWvZoEVIS9sQL46eVwiV2OYreyl1TzhdliH_CFtAIWwJE35VpTI2YwZumUmYc2HiAZjkCd7HDu61kBPULHYEVGqFkrkO8wGSK8Lnk7CO8aNgzjIcnp49lEtvZBh7Y1JiAJ5rOjC8rgnZO0BOuGCA';
 
   Map<String, String> get _headers => {
         'content-type': 'application/vnd.api+json',
@@ -70,62 +41,88 @@ class MyAnimeListAPI extends MyAnimeListAuth {
       'fields':
           'id,title,main_picture,synopsis,start_date,rank,popularity,nsfw,status,genres,num_chapters,authors,recommendations'
     });
-    final List<MangaModel> mangaList = [];
 
-    for (dynamic data in result['data']) {
-      mangaList.add(MangaModel.fromJson(data['node']));
+    if (result.isNotEmpty && result['error'] == 'invalid_token') {
+      getToken().then((value) => print(value));
     }
-    return mangaList;
+
+    return (result['data'] as List<dynamic>)
+        .map<MangaModel>((data) => MangaModel.fromJson(data['node']))
+        .toList();
   }
 }
 
-class MyAnimeListAuth {
+extension MyAnimeListAuth on MyAnimeListAPI {
+  static const code =
+      'def502006ffdf5c791a5b74f077e0be77bb54f11079e0f520e9db2f8d71524ac540385e45047ca1b7056b08126646062393e388154cf64328f6c7742202f9095632d97b70288bc5f92411fe9043c3027ea93c5f3c42928b843d49c41159d268e6c9cf625058987f4f40c92c49d16c84fa08ae5a69adfce24ce4b499c597e01bc8899b654df21f0a7116e660294bb0d1c5d1d9ce7d68d09d86b98be1338c2409001c3e9cb68bd62f0424e607fd370aab02ab0525834b6be383bece0bfc7ba96f64194501bc71bc6d8467b7fef3c788923087df2118708863b1e28f16b00f75d7a2aa1497614ed9ca641275f30c3045d569bda99679a1effa6c608599d1a2e53cc932dc76a4b36890c0252f1bac4a708ff8b075fa35c2dffb3364cc7512466194761f4f4662fca91505a9f323a9271e0ba7bd86a4e0088a2ebf312b47f8ad5108c2ea282eeab93b68fca01d9b4a13d58cf46ae410dbbaa9649a351bce1eb5783ec5dbb165605c7d1c1d01a4776f5ac93ea954bd1440d4055e3d732644db6c85f689a15a0933a66eb33d033c61e01893948a2a0df0aa3';
+  static const refresh =
+      'def502003a9031ac337a24e2bb96e56b471bc28328b584ada4cc8b413133005e3b4d40084b789aed9fde7c24af6b4e627eefcea6a5436ff32f35e4f7b4d418d895ff71b63fb6bc639d8e103f4f6dbb05fd90ad982';
+
   Future authorize() async {
-    const Map<String, Object> params = {
+    final uri = Uri.https('myanimelist.net', 'v1/oauth2/authorize', {
       'response_type': 'code',
       'client_id': '03bf21edc8363c12b568590528dc4c1e',
       'state': 'ok',
       'code_challenge': 'C5kAY9f5fdzoVu_iwLCN0JZpO0LfC76PVE-qWClk8-A',
-    };
-    final uri = Uri.https('myanimelist.net', 'v1/oauth2/authorize', params);
+    });
     await http.get(uri);
   }
 
   Future<dynamic> getToken() async {
-    const code =
-        'def50200e7269b5869f2902dc93faa7d37b414e8a5fcc4c368fccb7d0ce9290f74350ebeb97e6a471b915e6d4483974656200ae1f28c42bb8926c327057fe684983108ed98347f4b76665151c0f8489affe5500202cceea9fa5679e1d60d9b53d4ea6a2600ba9829ba58a03c04a9f5c1b441be486e135aa2dc2db79ebb09be3fa087fc582f7a26aac4182d62a1559a606ebc2936c5a0b6bc055eb0291e6a3cfc1f66198cbc73e57ea4215b3b951ee148a567afa21606452ce80d4f13dec99d28bd79c8e2f586f8327dfd495caf184c2b65e7d70c8526c3015225889f00de830526c83e09b982a1c11cb77c9a7729750ac3bef22cacdd5612f53cf82e1fd17c1ab1383d979cd886aa01460f793f6f9938e55a4a4810252e9ec8837bbb7ded71f3366b781fce90d98a460e15b91d48f5946fec2db50073823ae397f6383d37998b1c70ff6d28a5a202c7481b3f06fd64336acc32fc192cb8e43a671da6ffa4db1f0d1363908be21a26ca7aa9e5d22d25081f3a34e41cc80454e0f48131f9d9d610c518e1c3c5eef81d3e3ebae9af195c9ac24765fa4b';
-    final uri = Uri.https('myanimelist.net', 'v1/oauth2/token');
-    final results = await http.post(
-      uri,
-      headers: <String, String>{
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+    final response = await http.post(
+      Uri.https('myanimelist.net', 'v1/oauth2/token'),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: {
         'client_id': '03bf21edc8363c12b568590528dc4c1e',
         'grant_type': 'authorization_code',
-        'code': code,
+        'code': MyAnimeListAuth.code,
         'code_verifier': 'C5kAY9f5fdzoVu_iwLCN0JZpO0LfC76PVE-qWClk8-A',
       },
     );
 
-    return jsonDecode(results.body);
+    return jsonDecode(response.body);
   }
 
   Future<dynamic> refreshToken() async {
-    const String refreshToken =
-        'def502005cd8bfca7ab804d5ec21dc72c7355845ba56290af8c04d5676219d07084b10c5dcfc6f8af3e447918f1a5aaea486f433cef6f8f9c672091ee97e4aedbfa30bb1e8b8c3b3de5b943b03c87c91e09';
-    final uri = Uri.https('myanimelist.net', 'v1/oauth2/token');
     final results = await http.post(
-      uri,
-      headers: <String, String>{
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+      Uri.https('myanimelist.net', 'v1/oauth2/token'),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       body: {
+        'client_id': '03bf21edc8363c12b568590528dc4c1e',
         'grant_type': 'refresh_token',
-        'refresh_token': refreshToken,
+        'refresh_token': MyAnimeListAuth.refresh,
       },
     );
 
     return jsonDecode(results.body);
   }
 }
+
+// id,
+// title,
+// main_picture,
+// alternative_titles,
+// start_date,
+// end_date,
+// synopsis,
+// mean,
+// rank,
+// popularity,
+// num_list_users,
+// num_scoring_users,
+// nsfw,
+// created_at,
+// updated_at,
+// media_type,
+// status,
+// genres,
+// my_list_status,
+// num_volumes,
+// num_chapters,
+// authors{first_name,last_name},
+// pictures,
+// background,
+// related_anime,
+// related_manga,
+// recommendations,
+// serialization{name}

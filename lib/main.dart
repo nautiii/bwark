@@ -1,8 +1,6 @@
-import 'package:bwark/bloc/manga_source_bloc.dart';
 import 'package:bwark/bloc/myanimelist_bloc.dart';
 import 'package:bwark/data/index_model.dart';
 import 'package:bwark/firebase_options.dart';
-import 'package:bwark/resources/mangascantrad_source.dart';
 import 'package:bwark/theme.dart';
 
 import 'package:bwark/ui/bottom_bar.dart';
@@ -23,7 +21,6 @@ void main() async {
 
 class App extends StatelessWidget {
   final MyAnimeListBloc _malBloc = MyAnimeListBloc();
-  final MangaSourceBloc _msBloc = MangaSourceBloc();
 
   App({super.key});
 
@@ -53,9 +50,6 @@ class App extends StatelessWidget {
                     BlocProvider<MyAnimeListBloc>(
                       create: (_) => _malBloc
                         ..add(const GetMALMultipleManga(genre: 'seinen')),
-                    ),
-                    BlocProvider<MangaSourceBloc>(
-                      create: (_) => _msBloc..setSource(MangaScanTradSource()),
                     ),
                   ],
                   child: widgetOptions.elementAt(model.index),
